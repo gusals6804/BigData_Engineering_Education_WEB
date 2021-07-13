@@ -1,0 +1,68 @@
+12버전 부터는 다운로드가 한개 - 64비트
+
+파일을 두개 받았을 때 폴더가 두개 생길 수 있음
+2안에 있는 것을 복사해서 1안에 넣어야한다.
+
+보안 갱신 구성
+전자 메일: 안적는다
+수신 체크 풀기
+비밀번호
+
+그냥 넘어간다.
+
+설치 옵션
+기본 값으로 설치
+
+시스템 클래스
+그대로
+
+일반 설치 구성
+app admin
+나머지 수정 안함
+
+전역 데이터베이스 이름 수정안함 orcl
+
+패스워드 1로 만들기 그냥 넘어가기
+
+확인 눌러주기
+
+마지막도 확인
+
+http://192.1.3.250/Bit/
+
+sqlplus로 확인
+
+사용자명 system
+비밀번호 1
+엔터해서 진입
+
+터미널 창
+
+sqlplus system/1 바로 접속
+
+CREATE TABLESPACE myts DATAFILE 'C:\app\admin\admin\orcl\myts.dbf' SIZE 100M AUTOEXTEND ON NEXT 5M;
+// 데이터 공간을 생성하고 myts라는 저장 파일을 만든다. 크기는 100M 모자르면 5M씩 추가한다.
+
+create user khm identified by 1 default tablespace myts temporary tablespace temp;
+// khm 유저 이름으로 생성하고 비밀번호는 1이다. myts로 접근 권한을 준다. 
+// 사용자가 생성되었습니다.
+
+// 12버전 다음 버전은 참고 문장 먼저 하고 사용자를 생성하여야 한다.
+참고 ALTER SESSION SET "_ORACLE_SCRIPT"=TRUE;
+
+// grant: 권한을 부여한다.
+// 리소스도 허용
+grant dba, connect, resource to khm;
+
+// 12버전 이후에는 c## khm;으로 사용해야 한다.
+
+sql Developer 찾아서 실행
+
+다 예스로 넘어가고 병원 표시 플러스를 클릭한다.
+
+접속 이름과 사용자 이름을 khm으로 하고 비밀번호도 1로 동일하게 한다.
+
+drop table apple;
+Create table apple (
+  age number 
+);
