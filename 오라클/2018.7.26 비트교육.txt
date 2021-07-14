@@ -1,0 +1,234 @@
+sql
+Structured Query Language
+
+구조화된 테이블을 다룬다.
+
+/*----------------------------------------------*/
+
+1.테이블을 하나 만들자.
+
+Create table orange(
+  age number
+);
+
+/*----------------------------------------------*/
+
+2.테이블을 삭제 하는 방법
+
+Drop table orange;
+Create table orange(
+  age number
+);
+
+/*----------------------------------------------*/
+
+-- : 주석 처리
+컨트롤 시프트 / : 주석 처리 및 해제 단축키
+* : 모든 것
+
+3. 테이블 생성 확인하기
+
+Select * FROM TAB; 테이블 확인하기
+BIN은 만들었다가 지운 테이블
+
+/*----------------------------------------------*/
+
+4. 휴지통 비우기
+
+purge recyclebin; : 휴지통 비우기
+
+방향키 위 아래를 통해 사용했던 코드를 사용 : 도스 키
+
+
+/*----------------------------------------------*/
+
+5. 테이블을 만드는 기본 형태
+
+Drop table apple;
+purge recyclebin;
+
+Create table apple(
+  age number
+);
+
+select * from tab;
+
+/*----------------------------------------------*/
+
+6. 필드 추가
+varchar는 문자열 ()사이에 크기 지정
+콤마로 연결하고 마지막에는 붙이지 않는다.
+
+Create table apple(
+  name varchar(20), 여기에 콤마 중요
+  age number 
+);
+
+/*----------------------------------------------*/
+
+Drop table apple;
+purge recyclebin;
+
+Create table apple(
+  name varchar(20), --이름
+  age number,       --나이
+  salary number,    --월급
+  home varchar(10)  --고향
+);
+
+select * from tab;
+
+/*----------------------------------------------*/
+
+7. CRUD중에서 C 레코드 추가
+
+문자열은 ''으로 사용
+
+INSERT into apple values('홍길동',23,300,'부산');
+INSERT into apple values('윤은솔',24,1000,'김해');
+INSERT into apple values('김현민',25,1000,'서울');
+INSERT into apple values('정우현',25,1000,'부산');
+INSERT into apple values('호랑이',21,500,'대구');
+
+/*----------------------------------------------*/
+
+8. 테이블의 모든 내용 찾기
+
+SELECT * FROM apple;
+
+/*----------------------------------------------*/
+
+Developer에서는 진짜로 저장하지 않았다.
+
+9. 자료를 진짜로 저장하기
+
+COMMIT;
+
+/*----------------------------------------------*/
+
+Drop table banana;
+purge recyclebin;
+
+--이름(20바이트) 나이(숫자) 월급(숫자) 고향(10바이트)
+Create TABLE banana(
+  name varchar(20), 
+  age number,
+  salary number,
+  home varchar(10)
+);
+SELECT * FROM tab;
+
+INSERT INTO banana values('김현민',25,1000,'서울');
+INSERT INTO banana values('윤은솔',24,1000,'김해');
+INSERT INTO banana values('정우현',25,1000,'부산');
+Select * FROM banana;
+
+COMMIT;
+
+/*----------------------------------------------*/
+
+10. 샘플 데이터
+
+INSERT INTO banana values('김현민',25,1000,'서울');
+INSERT INTO banana values('윤은솔',24,1000,'김해');
+INSERT INTO banana values('정우현',25,1000,'부산');
+INSERT INTO banana values('홍길동',20,300,'대구');
+INSERT INTO banana values('호랑이',15,500,'인천');
+
+/*----------------------------------------------*/
+
+11. 테이블의 총 레코드 갯수
+
+SELECT COUNT(*) FROM banana;
+
+/*----------------------------------------------*/
+
+12. 선택적으로 필드 값을 추가 시킬 때
+
+INSERT INTO banana(name, age, salary, home) values('사자',22,700,'강릉');
+INSERT INTO banana(age, home) values(22,'강릉');
+
+/*----------------------------------------------*/
+
+13. 레코드 추가 할 때 연상이 가능하다.
+
+INSERT INTO banana values('코끼리',22*2,300*1.2,'제주도');
+
+/*----------------------------------------------*/
+
+14. &을 사용하여 직접 입력 (정말 필요없다.)
+
+문자열은 '' 사용하기!!
+INSERT INTO banana values(&a,&b,&c,&d);
+
+이렇게 ''을 미리 사용해줘도 된다.
+INSERT INTO banana values('&a',&b,&c,'&d');
+
+/*----------------------------------------------*/
+
+15. SELECT 기본 문법
+SELECT FROM
+
+--ex1
+SELECT * FROM banana; 
+
+--ex2
+SELECT COUNT(*) FROM banana; 
+
+--ex3 원하는 필드만 볼 수 있다.
+SELECT name FROM banana; 
+
+--ex4 두 개 이상은 , 사용
+SELECT name, home FROM banana; 
+
+--ex5 연산 가능
+SELECT name, salary*12 FROM banana; 
+
+--ex6
+SELECT name, age-1 FROM banana; 
+
+--ex7 연산도 묶어서 사용 가능
+SELECT name, salary*12, age-1 FROM banana; 
+
+--ex8 원하는 만큼 볼 수 있다.
+SELECT name, name, salary, salary*12, age, age*12 FROM banana;
+ 
+--ex9 as 사용으로 이름을 바꿀 수 있다.
+SELECT name AS 이름, age AS 나이, salary * 12 AS 연봉 FROM banana; 
+
+--ex10 as 생략 가능, ""으로 띄워쓰기 가능
+SELECT name 이름, age 나이, salary * 12 "연 봉" FROM banana; 
+
+--ex11 필드를 합친다. || 사용
+SELECT (name || age) AS 호랑이, (salary || salary*12) AS 월급과연봉 FROM banana; 
+
+/*----------------------------------------------*/
+
+DISTINCT: 중복 제거
+
+SELECT DISTINCT home FROM banana;
+
+중복 제거 후에 갯수
+
+SELECT count (DISTINCT home) FROM banana;
+
+/*----------------------------------------------*/
+
+select name 이름, age-1 나이, (salary||' '||salary*12) "월급 및 연봉" from banana;
+
+set pagesize 200;
+set linesize 200;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
