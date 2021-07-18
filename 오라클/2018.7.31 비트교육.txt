@@ -1,0 +1,325 @@
+file - new - other - maven - maven project
+
+next
+
+create a simple project 체크하기
+
+next
+
+group id artifact id : Prj99로 설정
+
+finish
+
+
+메이븐을 이용
+
+String driver ="oracle.jdbc.driver.OracleDriver"; 
+System.out.printf("%s\n", Class.forName(driver) );
+
+poom.xml에 추가해서 업데이트
+
+<repositories>
+<repository>
+<id>codelds</id>
+<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+</repository>
+</repositories>
+
+<dependencies>
+<dependency>
+<groupId>com.oracle</groupId>
+<artifactId>ojdbc6</artifactId>
+<version>11.2.0.3</version>
+</dependency>
+</dependencies>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.5</version>
+</plugin>
+</plugins>
+</build> 
+
+</project> 위에 넣기
+
+알트 F5
+
+ojdbc6-11.2.0.3.jar가 설치 되었다.
+
+/*---------------------------------------------*/
+
+package PACK01;
+
+public class Hello {
+
+
+	public static void main(String[] args) {
+
+		System.out.println("호랑이");
+	
+		String driver ="oracle.jdbc.driver.OracleDriver"; 
+		
+		try {
+			//System.out.println(Class.forName(driver));
+			System.out.println(Class.forName("java.lang.String"));
+			//현재 찾고 싶은 클래스를 찾아준다.
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("----------------------");
+		
+	}
+}
+
+/*---------------------------------------------*/
+
+		Connection con=null;
+		
+		String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+		String username="khm"; 
+		String password="1"; 
+
+		try {
+			con=DriverManager.getConnection(dburl,username,password);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			// exception 확인
+		}
+		
+		System.out.println("개구리");
+
+/*---------------------------------------------*/
+
+		//문장을 준비하는 객체
+		PreparedStatement ps=null;
+		
+		String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+		System.out.println(sql);
+		
+		try {
+			ps = con.prepareStatement(sql);
+			// 이 문장을 컴파일 한다.
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		//실행
+		try {
+			ps.executeUpdate();			
+			ps.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+/*---------------------------------------------*/
+
+package PACK01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class Hello {
+
+
+	public static void main(String[] args) {
+
+		System.out.println("호랑이");
+	
+		String driver ="oracle.jdbc.driver.OracleDriver"; 
+		
+		try {
+			//System.out.println(Class.forName(driver));
+			System.out.println(Class.forName("java.lang.String"));
+			//현재 찾고 싶은 클래스를 찾아준다.
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("----------------------");
+		
+		//로그인
+		Connection con=null;
+		
+		String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+		String username="khm"; 
+		String password="1"; 
+		
+		try {
+			con=DriverManager.getConnection(dburl,username,password);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			// exception 확인
+		}
+		
+		System.out.println("개구리");
+		System.out.println("----------------------");
+		
+		//문장을 준비하는 객체
+		PreparedStatement ps=null;
+		
+		String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+		System.out.println(sql);
+		
+		try {
+			ps = con.prepareStatement(sql);//기계어 번역
+			// 이 문장을 컴파일 한다.
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("----------------------");
+
+		//실행
+		try {
+			ps.executeUpdate(); //f5번 누른것과 같다.		
+			ps.close(); 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("호랑이");
+
+	}
+}
+
+/*---------------------------------------------*/
+
+package PACK01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class Hello {
+
+
+	public static void main(String[] args) {
+
+		System.out.println("호랑이");
+	
+		String driver ="oracle.jdbc.driver.OracleDriver"; 
+		
+		//로그인을 위한 과정
+		Connection con=null;
+		
+		String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+		String username="khm"; 
+		String password="1"; 
+
+		//문장을 준비하는 객체
+		PreparedStatement ps=null;
+		
+		String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+		System.out.println(sql);
+
+		try {
+			//현재 찾고 싶은 클래스를 찾아준다.
+			System.out.println(Class.forName(driver));
+			//System.out.println(Class.forName("java.lang.String"));
+
+			//로그인
+			con=DriverManager.getConnection(dburl,username,password);			
+			
+			//기계어 번역
+			ps = con.prepareStatement(sql);
+			
+			//실행
+			ps.executeUpdate(); //f5번 누른것과 같다.		
+			ps.close(); 
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("호랑이");
+
+	}
+}
+
+/*---------------------------------------------*/
+
+package PACK01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class Hello {
+
+	public static void main(String[] args) {
+
+		System.out.println("호랑이");
+
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver ="oracle.jdbc.driver.OracleDriver"; 
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con=null;
+			
+			String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username="khm"; 
+			String password="1"; 
+			
+			con=DriverManager.getConnection(dburl,username,password);			
+			
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps=null;
+			
+			String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			System.out.println(sql);
+			
+			ps = con.prepareStatement(sql);
+			
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+			
+			//5단계: 접속 종료
+			ps.close(); 
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		System.out.println("호랑이");
+
+	}
+}
+
+/*---------------------------------------------*/
+
+C:\app\admin\product\11.2.0\dbhome_1\jdbc\lib
+
+ojdbc6을 여기로 복사
+
+C:\Program Files\Java\jre1.8.0_171\lib\ext
+
+프로젝트 이름에 마우스 놓고 alt enter
+
+java build path
+
+libraries
+
+add external jars 여기에 ojdbc6추가
+
+
+
+
+
