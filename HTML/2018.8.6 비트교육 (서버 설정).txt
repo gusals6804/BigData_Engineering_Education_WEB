@@ -1,0 +1,78 @@
+ipconfig IP 주소를 알려준다.
+
+/*------------------------------------------------------------------------------*/
+// 서버 작업
+package PACK;
+
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+
+public class Hello {
+
+	public static void main(String[] args) {
+
+		try {			
+		
+			ServerSocket serverSocket = new ServerSocket(5001);
+			// 첫 번째에 IP주소, 두 번째는 포트 번호를 설정
+			// localhost는 자기 컴퓨터의 IP주소를 알려준다.
+			// cmd - ipconfig - Ipv4주소 - 192.1.3.210
+			// 포트 번호는 0~9999까지 사용가능 0~1024는 쓰지 않는다.
+			// bind: 현재 IP 주소와 포트 번호를 알려준다.
+			// serverSocket.bind(new InetSocketAddress("localhost",5001));
+			String localHostAddress = InetAddress.getLocalHost().getHostAddress();
+			System.out.println(localHostAddress);
+					
+			System.out.println(1);
+			serverSocket.accept(); // 이것이 블로킹 함수.accept();
+			System.out.println(2);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+
+}
+
+/*------------------------------------------------------------------------------*/
+// Tomcat 설치
+
+http://tomcat.apache.org/ : 여기 링크로 접속
+
+32-bit/64-bit Windows Service Installer 클릭
+
+setup 창 실행 - next - I agree - next - 8080을 80으로 바꾼다. - next - install
+
+finish 창 - 체크 버튼 둘 다 해제 하고 finish
+
+C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib
+
+el-api, jsp-api, servlet-api
+
+C:\Program Files\Java\jre1.8.0_181\lib\ext 여기에 복사
+
+java open perspetive - web을 활성화 
+
+new - dynamic web project - Web01 생성 
+
+확장자가 HTML, JSP
+
+New HTML File - 파일명은 index
+
+jsp File - 파일명은 index
+
+The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build Path 에러
+
+프로젝트를 클릭하고 Alt + Enter - project Facet - runtime 클릭 - new 클릭 
+- Apache Tomcat v9.0 next - C:\Program Files\Apache Software Foundation\Tomcat 9.0 위치 설정
+- Apache Tomcat v9.0 체크
+
+오류가 사라지지 않으면 체크를 해제하고 다시 Apply 체크 하고 다시 Apply 해보기
+
+window - web browser - chrome
+
+window - show view - other - server 열기
+
