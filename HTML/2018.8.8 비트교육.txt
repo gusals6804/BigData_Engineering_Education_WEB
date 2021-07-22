@@ -1,0 +1,276 @@
+/*------------------------------------------------------------------------------*/
+
+** 테이블
+
+	<!-- tr은 세로 갯수 td는 가로 갯수 -->
+	<table border="1">
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+		</tr>
+	</table>
+
+/*-------------------------------------------*/
+
+	<!-- tr은 세로 갯수 td는 가로 갯수 -->
+	<table border="1">
+		<tr>
+			<td>이름</td>
+			<td>나이</td>
+			<td>연봉</td>
+			<td>고향</td>
+		</tr>
+		<tr>
+			<td>김현민</td>
+			<td>25</td>
+			<td>5000</td>
+			<td>서울</td>
+		</tr>
+		<tr>
+			<td>윤은솔</td>
+			<td>24</td>
+			<td>5000</td>
+			<td>김해</td>
+		</tr>
+	</table>
+
+/*-------------------------------------------*/
+// th는 헤더 정의
+
+	</table>
+	
+		<table border="1">
+		<tr>
+			<th>영화제목</th>
+			<th>연도</th>
+			<th>감독</th>
+			<th>평가</th>
+		</tr>
+		<tr>
+			<td>라이프 오브 파이</td>
+			<td>2013</td>
+			<td>이안</td>
+			<td>8.68</td>
+		</tr>
+		<tr>
+			<td>레미제라블</td>
+			<td>2012</td>
+			<td>톰후퍼</td>
+			<td>8.28</td>
+		</tr>
+	</table>
+
+/*-------------------------------------------*/
+// 셀 병합 clospan, rowspan
+// 병합 되서 사라질 칸을 주석 잡는다.
+
+	</table>
+		<table border="1">
+		<tr>
+			<td colspan="2">1</td>
+			<!-- <td>2</td> -->
+			<td rowspan="2">3</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>5</td>
+			<!-- <td>6</td> -->
+		</tr>
+	</table>
+	
+	<br/>
+	<table border="1">
+		<tr>
+			<td rowspan="2" colspan="2">1</td>
+			<!-- <td>2</td> -->
+			<td>3</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<!-- <td>5</td>
+			<td>6</td> -->
+			<td>7</td>
+			<td>8</td>
+		</tr>
+		<tr>
+			<td colspan="3">9</td>
+			<!-- <td>10</td>
+			<td>11</td> -->
+			<td>12</td>
+		</tr>
+	</table>
+
+/*-------------------------------------------*/
+// 제목 만들기
+// <caption>
+
+	<table border="1">
+		<caption>
+			최근에 본 영화들
+		</caption>
+		<tr>
+			<th>영화제목</th>
+			<th>연도</th>
+			<th>감독</th>
+			<th>평가</th>
+		</tr>
+		<tr>
+			<td>라이프 오브 파이</td>
+			<td>2013</td>
+			<td>이안</td>
+			<td>8.68</td>
+		</tr>
+		<tr>
+			<td>레미제라블</td>
+			<td>2012</td>
+			<td>톰후퍼</td>
+			<td>8.28</td>
+		</tr>
+	</table>
+
+/*-------------------------------------------*/
+// <td> 안에 다른 것을 넣을 수 있다.
+
+	<table border="1">
+		<tr>
+			<td>
+				<ul>
+					<li>에스프레소</li>
+					<li>아메리카노</li>
+					<li>카페라떼</li>
+				</ul>
+			</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+		</tr>
+	</table>
+
+/*------------------------------------------------------------------------------*/
+//<div>
+
+	<div style="border: 3px solid red;">
+		<h2>사자</h2>
+		<P>
+			사자는 아프리카에 살며
+			강한 다리와 턱,
+			<span style="color: red;">긴송곳니</span>
+			지니고 있다.
+		</P>
+	</div>
+
+	<div style="height:20px; background-color:yellow"></div>	
+	<div style="height:20px; background-color:green"></div>	
+	<div style="height:20px; background-color:purple"></div>
+
+/*------------------------------------------------------------------------------*/
+//<form> 기본 형태
+
+	<form action="input.jsp">
+		<!-- value는 디폴트 값 설정 -->
+		<input type="text" value="호랑이"/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+
+/*-------------------------------------------*/
+//<form>의 속성
+
+	<div style="border: 3px solid red;">
+	
+		<form action="input.jsp">
+			<input type="text" value="호랑이"/> 
+			<input type="submit" value="확인"/>
+			<br/>
+				
+			<input type="text" value="코끼리"/> 
+			<input type="submit" value="전송"/> 
+			<br/>
+				
+			<input type="text" value="앵무새"/> 
+			<input type="submit"/>
+		</form>
+	
+	</div>
+
+/*-------------------------------------------*/
+
+	<form action="input.jsp">
+		이름: <input type="text" value="호랑이"/><br/>
+		이메일: <input type="email"/><br/> 
+		URL: <input type="url"/><br/> 
+		전화번호: <input type="tel"/><br/> 
+		색상: <input type="color"/><br/> 
+		월: <input type="month"/><br/> 
+		날짜: <input type="date"/><br/> 
+		주: <input type="month"/><br/> 
+		시간: <input type="time"/><br/> 
+
+		지역 시간: <input type="datetime-local"/><br/> 
+		숫자: <input type="number" min="1" max="10" step="2"/><br/> 
+		범위: <input type="range" min="1" max="10" step="2"/><br/> 
+		
+		<input type="submit"/>
+	</form>
+
+/*-------------------------------------------*/
+// radio, checkbox
+
+	<form action="input.jsp">
+		패스워드: <input type="password">
+		<br/>
+		
+		성별:
+		<!-- name을 같게 해주면 버튼 전환이 된다. --> 
+		<input type="radio" name="apple"> 남성
+		<input type="radio" name="apple"> 여성
+		<!-- 디폴트로 체크 되어있다. -->
+		<input type="radio" name="apple" checked="checked"> 중성
+		<br/>
+		
+		나무:
+		<input type="radio" name="banana"> 소나무
+		<input type="radio" name="banana"> 대나무
+		<input type="radio" name="banana" checked="checked"> 중나무
+		<br/>
+		
+		수신:
+		<input type="checkbox"> 수신동의
+		<input type="checkbox"> 수신양호
+		<input type="checkbox" checked="checked"> 수신거절
+		<br/>
+		<input type="submit"/>
+	</form>
+
+/*-------------------------------------------*/
+// Combo Box
+	
+	<form action="">
+		<select nmae="cars">
+			<option>BMW</option>
+			<option>Benz</option>
+			<option>현대자동차</option>
+			<option>기아자동차</option>
+		</select>
+	</form>
+
+/*-------------------------------------------*/
+//<fieldset>
+
+	<form>
+		<fieldset>
+			<legend>인적사항입력</legend>
+			이름:	<input type="text"><br/>
+			전화번호:	<input type="text"><br/>
+			주소:	<input type="text">
+		</fieldset>
+	</form>
