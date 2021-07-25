@@ -1,0 +1,392 @@
+new maven project - 체크 안하고 - 제일 마지막 ㅡ maven-archetype--wepapp
+
+web50 - src - main - webapp - index.jsp
+
+프로젝트 - 알트 엔터 - 런타임 - 아파치톰캣 - apply - apply close
+
+<!---------------------------------------------------------------------------->
+<!-- poom.xml -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Web50</groupId>
+  <artifactId>Web50</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Web50 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+
+<repositories>
+<repository>
+<id>codelds</id>
+<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+</repository>
+</repositories>
+
+<dependencies>
+<dependency>
+<groupId>com.oracle</groupId>
+<artifactId>ojdbc6</artifactId>
+<version>11.2.0.3</version>
+</dependency>
+</dependencies>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.5</version>
+</plugin>
+</plugins>
+</build> 
+
+
+</project>
+
+<!---------------------------------------------------------------------------->
+<!-- index에 드라이브 확인 -->
+
+<html>
+<body>
+<h2>Hello World!</h2>
+	호랑이
+	<%
+	
+		String driver ="oracle.jdbc.driver.OracleDriver"; 
+		
+		try {
+			System.out.println(Class.forName(driver));
+			//System.out.println(Class.forName("java.lang.String"));
+			//현재 찾고 싶은 클래스를 찾아준다.
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	%>
+	
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+폼
+
+<html>
+<body>
+	
+	<h1>insert</h1><br/>
+	<form action="aaa.jsp">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		age:<input type="text" name="age"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		home:<input type="text" name="home"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form><br/>
+	
+	<h1>update</h1>
+	<form action="bbb.jsp">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		name2:<input type="text" name="name2"/><br/>
+		age:<input type="text" name="age"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		home:<input type="text" name="home"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+
+	<h1>delete</h1>
+	<form action="ccc.jsp">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		<input type="submit"/>
+	</form>
+
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+insert
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<%@ page import ="java.sql.Connection" %>
+<%@ page import ="java.sql.DriverManager" %>
+<%@ page import ="java.sql.PreparedStatement" %>
+<%@ page import ="java.sql.ResultSet" %>
+
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		String name = request.getParameter("name");
+		int age = Integer.parseInt(request.getParameter("age"));
+		int salary = Integer.parseInt(request.getParameter("salary"));
+		String home = request.getParameter("home");
+	%>
+	<%
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("insert into banana values('%s',%d,%d,'%s')", name, age, salary, home);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+
+			//5단계: 접속 종료
+			ps.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+	%>
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+update
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<%@ page import ="java.sql.Connection" %>
+<%@ page import ="java.sql.DriverManager" %>
+<%@ page import ="java.sql.PreparedStatement" %>
+<%@ page import ="java.sql.ResultSet" %>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		String name = request.getParameter("name");
+		String name2 = request.getParameter("name2");
+		int age = Integer.parseInt(request.getParameter("age"));
+		int salary = Integer.parseInt(request.getParameter("salary"));
+		String home = request.getParameter("home");
+	%>
+	<%
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("update banana set name = '%s', age = %d, salary = %d, home = '%s' where name = '%s'",name2,age,salary,home,name);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+
+			//5단계: 접속 종료
+			ps.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+	%>
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+delete
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<%@ page import ="java.sql.Connection" %>
+<%@ page import ="java.sql.DriverManager" %>
+<%@ page import ="java.sql.PreparedStatement" %>
+<%@ page import ="java.sql.ResultSet" %>
+
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		String name = request.getParameter("name");
+	%>
+	<%
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("DELETE FROM banana WHERE name = '%s'",name);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+
+			//5단계: 접속 종료
+			ps.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+	%>
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+select
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<%
+		String n = null;
+		int a =0;
+		int s = 0;
+		String h = null;
+
+	
+		try {
+	
+			/* 2.접속 */
+			Connection con=null;
+			String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username="khm"; 
+			String password="1"; 
+	
+			con=DriverManager.getConnection(dburl,username,password);
+	
+			/* 3.쿼리문 작성,컴파일 */
+			PreparedStatement ps=null;
+			String sql="select * from banana";
+	
+			ps = con.prepareStatement(sql); 
+			System.out.println(sql);
+	%>
+		<table border="1">
+		<%-- 이름: <%= n %><br/>
+		나이: <%= a %><br/>
+		월급: <%= s %><br/>
+		고향: <%= h %><br/>
+		<br/> --%>
+			
+		<tr>
+			<th><h1>이름</h1></th>
+			<th><h1>나이</h1></th>
+			<th><h1>월급</h1></th>
+			<th><h1>고향</h1></th>
+		</tr>
+	<%
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				n=rs.getString("name");
+				a=rs.getInt("age");
+				s=rs.getInt("salary");
+				h=rs.getString("home");
+				System.out.println(n+" "+ " "+ a+" " + s+ " "+h);	
+	%>
+		
+				<tr>
+					<th><%=n%></th>
+					<th><%=a%></th>
+					<th><%=s%></th>
+					<th><%=h%></th>
+				</tr>
+			
+	<%
+			}	
+		//4.디벨로퍼 f5 역할
+		
+		//5.commit과 같음(접속종료)
+		rs.close();
+		rs.close();
+		con.close();
+
+	
+		}catch (Exception e) {
+
+		}
+
+	%>
+	
+</body>
+
+</html>
