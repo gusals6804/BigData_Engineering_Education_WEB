@@ -1,0 +1,315 @@
+<!------------------------------------------------------------>
+step01
+
+file - new maven project - create 체크 해제 - next
+- 맨 마지막 next - spring 01 - finish
+
+<!------------------------------------------------------------>
+step02
+버전 바꿔주기
+
+Alt + Enter로 속성창 열기 - project facets - 
+
+dynamic web 2.3, java 1.5 확인
+
+--스프링 프로젝트 파일에 .settings 경로 확인--
+
+C:\현민\Spring01\.settings
+
+- org.eclipse.jdt.core.prefs 파일 메모장으로 열기 1.5를 1.8로 바꾼다.
+
+- org.eclipse.wst.common.project.facet.core 메모장으로 열기 
+  1.5를 1.8, 2.3은 3.0으로 바꾼다. 
+
+프로젝트 이름을 선택하고 Alt + Enter force 체크하고 업데이트
+
+다시 project facets를 열면 버전이 바뀐 것을 확인할 수 있다.
+
+runtime - 아파치 톰캣 - apply - apply and close
+
+<!------------------------------------------------------------>
+step03
+
+poom.xml 열기
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>Spring01</finalName>
+  </build> 삭제
+
+<!------------------------------------------------------------>
+복사 붙여넣기
+Alt + Enter 눌러서 업데이트 force 체크하기
+프로젝트 이름과 버전 확인하기
+
+<properties>
+<spring.version>4.0.1.RELEASE</spring.version>
+</properties>
+
+<repositories>
+<repository>
+<id>codelds</id>
+<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+</repository>
+</repositories>
+
+<dependencies>
+
+<dependency>
+<groupId>com.oracle</groupId>
+<artifactId>ojdbc6</artifactId>
+<version>11.2.0.3</version>
+</dependency>
+
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>4.7</version>
+<scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>javax.servlet.jsp</groupId>
+<artifactId>jsp-api</artifactId>
+<version>2.2</version>
+</dependency>
+
+<dependency>
+<groupId>javax.servlet</groupId>
+<artifactId>javax.servlet-api</artifactId>
+<version>3.0.1</version>
+</dependency>
+
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-webmvc</artifactId>
+<version>4.1.0.RELEASE</version>
+</dependency>
+
+<dependency>
+<groupId>javax.servlet</groupId>
+<artifactId>jstl</artifactId>
+<version>1.2</version>
+</dependency>
+
+</dependencies>
+
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.0</version>
+<configuration>
+<source>1.8</source>
+<target>1.8</target>
+</configuration>
+</plugin>
+</plugins>
+</build>
+
+<!------------------------------------------------------------>
+step04
+
+src - main - webapp - webinf - web.xml - 밑에 source 들어와서 모두 삭제
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+id="WebApp_ID" version="3.0">
+<display-name>Archetype Created Web Application</display-name>
+
+<servlet>
+<servlet-name>dispatcher</servlet-name>
+<servlet-class>
+org.springframework.web.servlet.DispatcherServlet
+</servlet-class>
+<load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>dispatcher</servlet-name>
+<url-pattern>/</url-pattern>
+</servlet-mapping>
+
+<!--한글 설정-->
+
+<filter>
+<filter-name>encodingFilter</filter-name>
+<filter-class>
+org.springframework.web.filter.CharacterEncodingFilter
+</filter-class>
+<init-param>
+<param-name>encoding</param-name>
+<param-value>UTF-8</param-value>
+</init-param>
+</filter>
+<filter-mapping>
+<filter-name>encodingFilter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+</web-app> 
+
+붙여넣기
+
+<!------------------------------------------------------------>
+step05
+
+web-inf - new - other - xml 파일 만들기
+
+dispatcher-servlet로 파일 이름 만들기
+
+다지우고 복사 붙여넣기
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns ="http://www.springframework.org/schema/beans"
+xmlns:context ="http://www.springframework.org/schema/context"
+xmlns:mvc ="http://www.springframework.org/schema/mvc"
+xmlns:xsi ="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation=
+"http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<context:component-scan base-package="Pack01" /><-- 패키지 이름 동일하게 -->
+
+<mvc:annotation-driven/>
+<mvc:default-servlet-handler/>
+
+<mvc:view-resolvers>
+<mvc:jsp prefix="/WEB-INF/Views/"/><!-- jsp 파일은 여기서 찾아라 -->
+</mvc:view-resolvers>
+
+</beans>
+
+<!------------------------------------------------------------>
+step06
+index에 복사
+오류 나면 서버 삭제하고 다시 실행하기
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+<%=new Date()%> <!-- 현재 시간 확인 -->
+<h2>Hello World</h2>
+
+<a href="t1">링크</a>
+
+</body>
+
+
+<!------------------------------------------------------------>
+step07
+
+src - main - java - new - java - class - Pack01 - Tiger - public void 체크 안함
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class Tiger {
+	@RequestMapping("t1")
+	String func() {
+		System.out.println("들어왔습니다.");
+		return null;
+	}
+}
+
+<!------------------------------------------------------------>
+안되면 여기 삭제하고 다시 설치하기
+
+C:\Users\user\.m2\repository
+
+<!------------------------------------------------------------>
+
+다운을 받는 루트
+http://repo.maven.apache.org/maven2/
+
+<!------------------------------------------------------------>
+web-infdp Views 폴더 생성 이안에 TigerView.jsp를 만들어준다
+
+<!------------------------------------------------------------>
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func() {
+		System.out.println("들어왔습니다.");
+		return "TigerView";
+	}
+}
+
+
+<!------------------------------------------------------------>
+<!-- TigerView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	호랑이뷰
+</body>
+</html>
+
+<!------------------------------------------------------------>
+1. Spring01을 복사해서 Spring 02를 만든다.
+2. poom.xml로 가서 Spring02로 바꿔준다. 
+3. 그 다음 프로젝트를 F5로 업데이트하고 Alt+F5로 force 업데이트 한다.
+4. 서버 톰캣 삭제
+5. 엔터 한번 씩 치면서 수정하고 다시 force 업데이트
+
