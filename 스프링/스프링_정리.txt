@@ -1,0 +1,272 @@
+<!------------------------------------------------------------>
+예제 1번
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func() {
+		System.out.println("들어왔습니다.");
+		return "TigerView";
+	}
+}
+
+
+<!------------------------------------------------------------>
+<!-- TigerView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	호랑이뷰
+</body>
+</html>
+
+
+<!------------------------------------------------------------>
+예제2
+<!-- 클래스 안에서 함수 이름을 다르게 해서 원하는 곳으로 보낼 수 있다.-->
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t1">링크1</a><br/>
+	<a href="t3">링크2</a><br/>
+
+
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func01() {
+		System.out.println("호랑이1 경유");
+		return "TigerView";
+	}
+
+	@RequestMapping("t3") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func03() {
+		System.out.println("호랑이2 경유");
+		return "LionView";
+	}
+
+}
+
+<!------------------------------------------------------------>
+예제3
+<!-- 변수를 받는 여러가지 방법 -->
+
+<!-- index.jsp -->
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t4?nickname=tiger">링크4</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t4")
+	String func04(String nickname) {// 넘기는 변수랑 같을 때 사용
+	/*String func04(@RequestParam(value="nickname") String nickname) {*/
+	/*String func04(@RequestParam(value="nickname") String s) {*/
+	
+		System.out.println("호랑이4 경유");
+		System.out.println(
+
+nickname);
+		return "LionView";
+		
+	}
+
+}
+
+<!------------------------------------------------------------>
+예제4
+
+<!-- 두 가지 이상 변수를 받을 떄 -->
+
+<!-- index.jsp -->
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t5?nickname=tiger&salary=300">링크5</a><br/>
+
+</body>
+
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t5")
+	String func05(String nickname, int salary) {
+	/*String func05(
+			@RequestParam(value="nickname") String nickname,
+			@RequestParam(value="salary") int salary	
+	) {*/
+	
+		System.out.println("호랑이5 경유");
+		System.out.println(nickname+""+salary);
+		return "LionView";
+		
+	}
+
+}
+
+<!------------------------------------------------------------>
+예제5
+<!-- jsp로 토스(1) -->
+<!-- 모델 객체 사용 -->
+
+<!-- index.jsp -->
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t6?nickname=tiger&salary=300">링크6</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t6")
+	String func06(Model model, String nickname, int salary) {
+
+		System.out.println("호랑이6 경유");
+		System.out.println(nickname+""+salary);
+		model.addAttribute("k1",nickname);
+		model.addAttribute("k2",salary);
+		return "LionView";
+		
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.java -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	<!-- el식 사용 -->
+	${k1 }
+	${k2 }<br>
+	
+	<%
+		String s = (String)request.getAttribute("k1");
+		int i = (Integer)request.getAttribute("k2");
+	%>
+	
+	<%= s %>
+	<%= i %>
+	
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제6
+<!-- jsp로 토스(2) -->
+
+<!-- index.jsp -->
+
+
+
