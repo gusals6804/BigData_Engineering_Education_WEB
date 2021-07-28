@@ -1,0 +1,443 @@
+<!------------------------------------------------------------>
+<!-- insert -->
+
+<-- index.jsp-->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<h1>회원가입</h1><br/>
+	<form action="t27">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		age:<input type="text" name="age"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		home:<input type="text" name="home"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form><br/>
+
+</body>
+
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	
+	@RequestMapping("t27")
+	String insert(String name, int age, int salary, String home) {
+		
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("insert into banana values('%s',%d,%d,'%s')", name, age, salary, home);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+
+			//5단계: 접속 종료
+			ps.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+		return "LionView";
+
+	}
+}
+
+
+<!------------------------------------------------------------>
+<!-- LionView.java -->
+
+<body>
+
+	라이언뷰<br/>
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- update -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+	
+	<h1>update</h1>
+	<form action="t28">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Update.java -->
+
+package Pack01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller 
+public class Update {
+
+	@RequestMapping("t28")
+	String update(String name, int salary ) {
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("update banana set salary = %d where name = '%s'",salary,name);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+			System.out.println(4);
+			
+			//5단계: 접속 종료
+			ps.close();
+			System.out.println(5);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+		return "LionView";
+
+	}
+}
+
+<!------------------------------------------------------------>
+<!-- Delete -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<h1>delete</h1>
+	<form action="t29">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Delete.java -->
+
+package Pack01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller 
+public class Delete {
+
+	@RequestMapping("t29")
+	String delete(String name) {
+		try {
+
+			//1단계 : class 확인
+			//현재 찾고 싶은 클래스를 찾아준다.
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			System.out.println(Class.forName(driver));
+
+			//2단계 : 로그인
+			Connection con = null;
+
+			String dburl = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username = "khm";
+			String password = "1";
+
+			con = DriverManager.getConnection(dburl, username, password);
+
+			//3단계: 쿼리문 작성 및 컴파일
+			PreparedStatement ps = null;
+
+			//String sql="INSERT into banana values('개나리',25,1000,'하회마을')";
+			String sql = String.format("DELETE FROM banana WHERE name = '%s'",name);
+			System.out.println(sql);
+
+			ps = con.prepareStatement(sql);
+
+			//4단계: 실행
+			ps.executeUpdate(); //f5번 누른것과 같다.
+			System.out.println(4);
+
+			//5단계: 접속 종료
+			ps.close();
+			System.out.println(5);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		System.out.println("호랑이");
+		return "LionView";
+
+	}
+}
+
+<!------------------------------------------------------------>
+<!-- Select -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<h1>회원가입</h1><br/>
+	<form action="t27">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		age:<input type="text" name="age"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		home:<input type="text" name="home"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form><br/>
+	
+	<h1>update</h1>
+	<form action="t28">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		salary:<input type="text" name="salary"/><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+
+	<h1>delete</h1>
+	<form action="t29">
+		<!-- value는 디폴트 값 설정 -->
+		name:<input type="text" name="name"/><br/>
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+	
+	<h1>select</h1>
+	<a href="t30">링크</a>
+	
+	
+</body>
+<!------------------------------------------------------------>
+<!-- Select.java -->
+
+package Pack01;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.LinkedList;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class Select {
+
+	@RequestMapping("t30")
+	String select(Model model) {
+
+		String n = null;
+		int a =0;
+		int s = 0;
+		String h = null;
+
+		try {
+
+			/* 2.접속 */
+			Connection con=null;
+			String dburl="jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+			String username="khm"; 
+			String password="1"; 
+
+			con=DriverManager.getConnection(dburl,username,password);
+
+			/* 3.쿼리문 작성,컴파일 */
+			PreparedStatement ps=null;
+			String sql="select * from banana";
+		
+			ps = con.prepareStatement(sql); 
+			System.out.println(sql);
+			
+			ResultSet rs=ps.executeQuery();
+			
+			
+			LinkedList<Coffee> li = new LinkedList<>();
+			while(rs.next()) {
+				
+				n=rs.getString("name");
+				a=rs.getInt("age");
+				s=rs.getInt("salary");
+				h=rs.getString("home");
+				System.out.println(n+" "+ " "+ a+" " + s+ " "+h);							
+
+				li.add(new Coffee(n,a,s,h));			
+
+			}
+
+			model.addAttribute("li",li);
+		
+			
+			
+			//4.디벨로퍼 f5 역할
+	
+			//5.commit과 같음(접속종료)
+			rs.close();
+			rs.close();
+			con.close();
+
+
+		}catch (Exception e) {
+
+		}
+		
+		return "LionView";
+
+	}
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.java -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	
+	<table border="1">
+		<tr>
+			<td><h1>이름</h1></td>
+			<td><h1>나이</h1></td>
+			<td><h1>연봉</h1></td>
+			<td><h1>고향</h1></td>
+		</tr>
+		<c:forEach var="ii" items="${li}">
+		
+		<tr>
+			<td>${ii.name}</td>
+			<td>${ii.age}</td>
+			<td>${ii.salary}</td>
+			<td>${ii.home}</td>
+		</tr>
+	
+		</c:forEach>
+	</table>
+	
+</body>
+</html>
