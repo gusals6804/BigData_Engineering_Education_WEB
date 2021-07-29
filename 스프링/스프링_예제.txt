@@ -1,0 +1,1387 @@
+<!------------------------------------------------------------>
+예제 1번
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func() {
+		System.out.println("들어왔습니다.");
+		return "TigerView";
+	}
+}
+
+
+<!------------------------------------------------------------>
+<!-- TigerView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	호랑이뷰
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제2
+<!-- 클래스 안에서 함수 이름을 다르게 해서 원하는 곳으로 보낼 수 있다.-->
+
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a>
+	<a href="t2">링크2</a>
+	<a href="t3">링크3</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func01() {
+		System.out.println("호랑이 경유");
+		return "TigerView";
+	}
+
+<!------------------------------------------------------------>
+
+	@RequestMapping("t3") 
+	String func02() {
+		System.out.println("호랑이 경유");
+		return "LionView";
+	}
+}
+
+<!------------------------------------------------------------>
+예제3
+
+<!-- 변수를 받는 여러가지 방법 -->
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a>
+	<a href="t2">링크2</a>
+	<a href="t3">링크3</a>
+	<a href="t4?nickname=apple">링크4</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func01() {
+		System.out.println("호랑이1 경유");
+		return "TigerView";
+	}
+	
+	@RequestMapping("t3") 
+	String func03() {
+		System.out.println("호랑이2 경유");
+		return "LionView";
+	}
+
+<!------------------------------------------------------------>
+
+	@RequestMapping("t4") 
+	String func04(String nickname) { // 던지는 변수랑 같을 때
+  	//String func04(@RequestParam(value="nickname") String nickname) {
+  	//String func04(@RequestParam(value="nickname") String s) {
+		System.out.println("호랑이3 경유");
+		System.out.println(nickname);
+		return "LionView";
+	}
+	
+}
+
+<!------------------------------------------------------------>
+예제4
+
+<!-- 두 가지 이상 변수를 받을 떄 -->
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a>
+	<a href="t2">링크2</a>
+	<a href="t3">링크3</a>
+	<a href="t4?nickname=apple">링크4</a>
+	<a href="t5?nickname=apple&salary=300">링크5</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func01() {
+		System.out.println("호랑이1 경유");
+		return "TigerView";
+	}
+	
+	@RequestMapping("t3") 
+	String func03() {
+		System.out.println("호랑이2 경유");
+		return "LionView";
+	}
+
+	@RequestMapping("t4") 
+	String func04(String nickname) { // 던지는 변수랑 같을 때
+  //String func04(@RequestParam(value="nickname") String nickname) {
+  //String func04(@RequestParam(value="nickname") String s) {
+		System.out.println("호랑이4 경유");
+		System.out.println(nickname);
+		return "LionView";
+	}
+
+<!------------------------------------------------------------>
+	
+	@RequestMapping("t5") 
+	/*String func05(
+			@RequestParam(value="nickname") String nickname,
+			@RequestParam(value="salary") int salary
+	){*/
+	String func05(String nickname, int salary){ 
+		//String func04(@RequestParam(value="nickname") String s) {
+		System.out.println("호랑이5 경유");
+		System.out.println(nickname+""+salary);
+		return "LionView";
+	}
+}
+
+<!------------------------------------------------------------>
+예제5
+<!-- jsp로 토스(1) -->
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a>
+	<a href="t2">링크2</a>
+	<a href="t3">링크3</a>
+	<a href="t4?nickname=apple">링크4</a>
+	<a href="t5?nickname=apple&salary=300">링크5</a>
+	<a href="t6?nickname=apple&salary=300">링크6</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t1") // 아이디 설정: t1 이라는 이름으로 이 함수를 콜 하세요
+	String func01() {
+		System.out.println("호랑이1 경유");
+		return "TigerView";
+	}
+	
+	@RequestMapping("t3") 
+	String func03() {
+		System.out.println("호랑이2 경유");
+		return "LionView";
+	}
+
+	@RequestMapping("t4") 
+	String func04(String nickname) { // 던지는 변수랑 같을 때
+  //String func04(@RequestParam(value="nickname") String nickname) {
+  //String func04(@RequestParam(value="nickname") String s) {
+		System.out.println("호랑이4 경유");
+		System.out.println(nickname);
+		return "LionView";
+	}
+	
+	@RequestMapping("t5") 
+	/*String func05(
+			@RequestParam(value="nickname") String nickname,
+			@RequestParam(value="salary") int salary
+	){*/
+	String func05(String nickname, int salary){ 
+		//String func04(@RequestParam(value="nickname") String s) {
+		System.out.println("호랑이5 경유");
+		System.out.println(nickname+""+salary);
+		return "LionView";
+	}
+
+<!------------------------------------------------------------>
+
+	// Model을 import
+	@RequestMapping("t6") 
+	String func06(Model model, String nickname, int salary){ 
+		System.out.println("호랑이6 경유");
+		System.out.println(nickname+""+salary);
+		// 첫 번째 인수는 식별하는 아이디 두 번째 인수는 보내는 변수
+		model.addAttribute("k1",nickname);
+		// 이거는 dog를 받는다.
+		// model.addAttribute("nickname","dog");
+		model.addAttribute("k2",salary);
+		return "LionView";
+	}
+
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	라이언뷰
+	<!-- 표현식  el식 -->
+	${k1}
+	${k2}<br/>
+	
+	<%
+		//String s = request.getParameter("k1"); // 이거 안된다.
+		// Type mismatch: cannot convert from Object to String
+		// 타이캐스팅 해주기(String)
+		String s = (String)request.getAttribute("k1");
+		int i = (Integer)request.getAttribute("k2");
+	%>
+	<%= s %>
+	<%= i %>
+
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+
+	<h1>${k1}</h1>	
+	<h2>${k2}</h2>	
+	<h3><%=s %></h3>	
+	<h4><%=i %></h4>	
+	
+	<!-- 안된다. -->
+<%--<%=k1 %>
+	<%=k2 %> --%>
+
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제6
+<!-- jsp로 토스(2) -->
+
+<!-- index.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a>
+	<a href="t2">링크2</a>
+	<a href="t3">링크3</a>
+	<a href="t4?nickname=apple">링크4</a>
+	<a href="t5?nickname=apple&salary=300">링크5</a>
+	<a href="t6?nickname=apple&salary=300">링크6</a>
+	<a href="t7?nickname=apple&salary=300">링크7</a>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+
+<!------------------------------------------------------------>
+
+	@RequestMapping("t7") 
+	ModelAndView func07(String nickname, int salary){ 
+		System.out.println("호랑이7 경유");
+		System.out.println(nickname+""+salary);
+		ModelAndView mv = new ModelAndView("LionView");
+		mv.addObject("f1",nickname);
+		mv.addObject("f2",salary);
+		return mv;
+	}
+
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	라이언뷰<br/>
+	
+	${f1 }<br/>
+	${f2 }<br/> 
+	
+	<br/>
+	<br/>
+	<br/>
+
+	<%
+		String s = (String)request.getAttribute("f1");
+		int i = (Integer)request.getAttribute("f2");
+	%>
+	<%=s %>
+	<%=i %>
+
+
+</body>
+</html>
+
+
+<!------------------------------------------------------------>
+예제7
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a><br/>
+	<a href="t2">링크2</a><br/>
+	<a href="t3">링크3</a><br/>
+	<a href="t4?nickname=apple">링크4</a><br/>
+	<a href="t5?nickname=apple&salary=300">링크5</a><br/>
+	<a href="t6?nickname=apple&salary=300">링크6</a><br/>
+	<a href="t7?nickname=apple&salary=300">링크7</a><br/>
+	<a href="t8?nickname=apple&salary=300">링크8</a><br/>
+	<a href="t9?nickname=apple&salary=300">링크9</a><br/>
+	<a href="t10?nickname=apple&salary=300">링크10</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+<!------------------------------------------------------------>
+
+	@RequestMapping("t9") 
+	ModelAndView func09(Model model,HttpServletRequest hsr){ 
+		System.out.println("호랑이9 경유");
+		String s = (String)hsr.getParameter("nickname");
+		String i = (String)hsr.getParameter("salary");
+		
+		ModelAndView mv = new ModelAndView("LionView");
+		mv.addObject("g1",s);
+		mv.addObject("g2",i);
+				
+		System.out.println(s+""+i);
+		return mv;
+	}
+
+	@RequestMapping("t10") 
+	String func10(Model model,HttpServletRequest hsr){ 
+		System.out.println("호랑이10 경유");
+		String s = (String)hsr.getParameter("nickname");
+		String i = (String)hsr.getParameter("salary");
+		
+		model.addAttribute("h1",s);
+		model.addAttribute("h2",i);
+		System.out.println(s+""+i);
+
+		return "LionView";
+	}
+
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	라이언뷰<br/>
+	
+	${f1 }<br/>
+	${f2 }<br/> 
+	
+	<br/>
+	<br/>
+	<br/>
+	
+	${g1 }<br/>
+	${g2 }<br/> 
+
+	${h1 }<br/>
+	${h2 }<br/> 
+
+	<%-- <%
+		String s = (String)request.getAttribute("f1");
+		int i = (Integer)request.getAttribute("f2");
+	%>
+	<%=s %>
+	<%=i %>
+ --%>
+
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제8
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a><br/>
+	<a href="t2">링크2</a><br/>
+	<a href="t3">링크3</a><br/>
+	<a href="t4?nickname=apple">링크4</a><br/>
+	<a href="t5?nickname=apple&salary=300">링크5</a><br/>
+	<a href="t6?nickname=apple&salary=300">링크6</a><br/>
+	<a href="t7?nickname=apple&salary=300">링크7</a><br/>
+	<a href="t8?nickname=apple&salary=300">링크8</a><br/>
+	<!-- <a href="t9?nickname=apple&salary=300">링크9</a><br/>
+	<a href="t10?nickname=apple&salary=300">링크10</a><br/> -->
+	<a href="t9?nickname=apple&salary=300">링크9</a><br/>
+	<a href="t10?nickname=apple&salary=300">링크10</a><br/>
+	<a href="t11?nickname=LionView1&salary=300">링크11</a><br/>
+	<a href="t11?nickname=LionView2&salary=300">링크11</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+<!------------------------------------------------------------>
+	
+	// 여기를 거치지 않고 바로 라이언 뷰로 간다.
+	@RequestMapping("t9") 
+	String func9(){ 
+		System.out.println("호랑이11 경유");
+		// 여기서는 request를 사용할 수 없다.
+		return "LionView";
+	}
+
+	@RequestMapping("t10") 
+	ModelAndView func10(int salary){ 
+		System.out.println("호랑이10 경유");
+		ModelAndView mv;
+		if(salary%2==0) {
+			mv = new ModelAndView("LionView1");			
+		}else {
+			mv = new ModelAndView("LionView2");						
+		}
+		// 여기서는 request를 사용할 수 없다.
+		return mv;
+	}
+
+	@RequestMapping("t11") 
+	ModelAndView func11(String nickname){ 
+		System.out.println("호랑이10 경유");
+		ModelAndView mv = new ModelAndView(nickname);
+		// 여기서는 request를 사용할 수 없다.
+		return mv;
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView1.jsp -->
+
+	라이언뷰1
+
+<!------------------------------------------------------------>
+<!-- LionView2.jsp -->
+
+	라이언뷰2
+
+<!------------------------------------------------------------>
+예제9
+
+<mvc:view-controller path="/t2" view-name="BananaView"/>
+
+컨트롤러가 필요없을 때
+</mvc:view-resolvers>
+
+<mvc:view-controller path="/t2" view-name="BananaView"/>
+
+</beans>
+
+이 사이에 붙여 넣는다.
+path와 view 이름을 확인한다.
+한 개 이상 사용할 수 있다.
+인수 전달은 request.getParameter만 사용할 수 있다.
+이렇게 해놓고 컨트롤러를 만들면 안된다.
+xml을 수정하면 올 세이브와 업데이트를 잊지 말자 
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<!-- t1 이라고 아이디가 설정된  자바 함수로 가세요 -->
+	<a href="t1">링크1</a><br/>
+	<a href="t2">링크2</a><br/>
+	<a href="t3">링크3</a><br/>
+	<a href="t4?nickname=apple">링크4</a><br/>
+	<a href="t5?nickname=apple&salary=300">링크5</a><br/>
+	<a href="t6?nickname=apple&salary=300">링크6</a><br/>
+	<a href="t7?nickname=apple&salary=300">링크7</a><br/>
+	<a href="t8?nickname=apple&salary=300">링크8</a><br/>
+	<!-- <a href="t9?nickname=apple&salary=300">링크9</a><br/>
+	<a href="t10?nickname=apple&salary=300">링크10</a><br/> -->
+	<a href="t9?nickname=apple&salary=300">링크9</a><br/>
+	<a href="t10?nickname=apple&salary=300">링크10</a><br/>
+	<a href="t11?nickname=LionView1&salary=300">링크11</a><br/>
+	<a href="t11?nickname=LionView2&salary=300">링크11</a><br/>
+
+<!------------------------------------------------------------>
+
+	<a href="t13?nickname=apple&salary=300">링크13</a><br/>
+	<a href="t15?nickname=apple&salary=300">링크15</a><br/>
+
+
+</body>
+
+
+<!------------------------------------------------------------>
+예제10
+폼을 만들어서 보내기
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+<!------------------------------------------------------------>
+한글을 보낼 수 있다.
+
+	<a href="t16?nickname=호랑이&salary=300">링크16</a><br/>
+
+<!------------------------------------------------------------>
+폼 사용
+
+	<form action="t17">
+		<!-- value는 디폴트 값 설정 -->
+		이름: <input type="text" name="nickname" value="홍길동"/><br/> 
+		월급: <input type="number" name="salary" value=300 /><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t16") 
+	String func16(Model model, String nickname, int salary){ 
+		System.out.println("호랑이16 경유");
+		model.addAttribute("k1",nickname);
+		model.addAttribute("k2",salary);
+		return "LionView";
+	}
+
+<!------------------------------------------------------------>
+폼 사용
+	@RequestMapping("t17") 
+	String func17(Model model, String nickname, int salary){ 
+		System.out.println("호랑이17 경유");
+		model.addAttribute("k1",nickname);
+		model.addAttribute("k2",salary);
+		return "LionView";
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	라이언뷰<br/>
+	
+	${k1 }
+	${k2 }
+
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제11
+커멘드 객체
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+
+	<form action="t17">
+		<!-- value는 디폴트 값 설정 -->
+		이름: <input type="text" name="nickname" value="홍길동"/><br/> 
+		월급: <input type="number" name="salary" value=300 /><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	//커맨드 객체
+	@RequestMapping("t18") 
+	String func18(Coffee coffee){ 
+		System.out.println("호랑이18 경유");
+		System.out.println(coffee.getNickname());
+		System.out.println(coffee.getSalary());
+		return "LionView";
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- Coffee.java -->
+
+package Pack01;
+
+public class Coffee {
+	String nickname;
+	int salary;
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+	
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<body>
+	라이언뷰<br/>
+	
+	${k1 }
+	${k2 }
+
+</body>
+
+<!------------------------------------------------------------>
+예제12
+커멘드 객체 jsp로 보내기
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+
+	<form action="t19">
+		<!-- value는 디폴트 값 설정 -->
+		이름: <input type="text" name="nickname" value="홍길동"/><br/> 
+		월급: <input type="number" name="salary" value=300 /><br/> 
+		<input type="submit"/> <!-- 제출 버튼 -->
+	</form>
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	//커맨드 객체
+	@RequestMapping("t19") 
+	String func18(Model model,Coffee coffee){ 
+		System.out.println("호랑이19 경유");
+		System.out.println(coffee.getNickname());
+		System.out.println(coffee.getSalary());
+		model.addAttribute("coffee",coffee);
+		return "LionView";
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	
+	<%
+		Coffee c = (Coffee)request.getAttribute("coffee");
+	%>
+	<%=c.getNickname() %>
+	<%=c.getSalary() %>
+
+	<!-- el식은 앞에 coffee랑 같게 해줘야 한다. -->
+	${coffee.nickname}
+	${coffee.salary}<br/>
+	
+	${coffee.getNickname()}
+	${coffee.getSalary()}<br/>
+	
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제13
+배열을 보내기
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+View.jsp에 이것이 있어야 jstl 문법을 사용할 수 있다.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<head>
+<title>메인 페이지</title>
+</head>
+<body>
+	
+	<a href="t23">링크23</a><br/>
+	
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+
+package Pack01;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t23") 
+	String func23(Model model){ 
+		System.out.println("호랑이23 경유");
+		String[] ar = new String[5];
+		ar[0]="호랑이0";
+		ar[1]="호랑이1";
+		ar[2]="호랑이2";
+		ar[3]="호랑이3";
+		ar[4]="호랑이4";
+		model.addAttribute("ar",ar);
+		return "LionView";
+	}
+
+}
+
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	
+	<!-- items에 el식으로 넣는다 -->
+	<c:forEach var="ii" items="${ar}">
+		<h1>${ii}</h1>
+	</c:forEach>
+
+	<ul>
+	<c:forEach var="ii" items="${ar}">
+		<li>${ii}</li>
+	</c:forEach>
+	</ul>
+
+	<!-- 테이블 -->
+	<table border="1">
+		<c:forEach var="ii" items="${ar}">
+			<tr>
+				<td>${ii}</td>
+			</tr>
+		</c:forEach>
+	</table>
+
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제14
+
+생성자 객체를 만들어서 전달하기
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t24">링크24</a><br/>
+
+</body>
+
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t24")
+	String func024(Model model) {
+		
+		System.out.println("호랑이24 경유");
+		Coffee coffee = new Coffee("홍길동",400);
+		model.addAttribute("coffee",coffee);
+		return "LionView";
+		
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	${coffee.nickname }
+	${coffee.salary }<br/>
+	
+	<%
+		Coffee c = (Coffee)request.getAttribute("coffee");
+	%>
+	
+	<%= c.getNickname() %>
+	<%= c.getSalary() %>
+	
+	
+	
+</body>
+</html>
+
+<!------------------------------------------------------------>
+<!-- Coffee.java -->
+
+package Pack01;
+
+public class Coffee {
+	String nickname;
+	int salary;
+	
+// 생성자 만들기
+
+	public Coffee(String nickname, int salary) {
+		super();
+		this.nickname = nickname;
+		this.salary = salary;
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+	
+	
+}
+
+<!------------------------------------------------------------>
+예제15
+생성자 객체 배열을 보내기
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t25">링크25</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t25")
+	String func25(Model model) {
+		
+		System.out.println("호랑이25 경유");
+		Coffee[] ar = new Coffee[4];
+		ar[0] = new Coffee("홍길동",100);
+		ar[1] = new Coffee("이순신",200);
+		ar[2] = new Coffee("김유신",300);
+		ar[3] = new Coffee("강감찬",400);
+		model.addAttribute("ar",ar);
+		return "LionView";
+		
+	}
+
+}
+
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	
+	<c:forEach var="ii" items="${ar}">
+		<h1>${ii.nickname}</h1>
+		<h1>${ii.salary}</h1>
+	</c:forEach>
+		
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제16
+생성자 객체를 LinkedList 사용
+
+<body>
+	
+	<%=new Date()%>
+	<h2>Hello World</h2>
+
+	<a href="t26">링크26</a><br/>
+
+</body>
+
+<!------------------------------------------------------------>
+<!-- Tiger.java -->
+
+package Pack01;
+
+import java.util.LinkedList;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+//이것을 붙여야 스프링을 사용할 수 있다. 
+@Controller // 자리를 띄우면 안된다.
+public class Tiger {
+	
+	@RequestMapping("t26")
+	String func26(Model model) {
+		
+		LinkedList<Coffee> li = new LinkedList<>();
+		li.add(new Coffee("호랑이",100));
+		li.add(new Coffee("코끼리",200));
+		li.add(new Coffee("사자",300));
+		li.add(new Coffee("앵무새",400));
+		
+		model.addAttribute("li",li);
+		System.out.println("호랑이26 경유");
+		return "LionView";
+		
+	}
+
+}
+
+<!------------------------------------------------------------>
+<!-- LionView.jsp -->
+
+<%@page import="Pack01.Coffee"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	라이언뷰<br/>
+	
+	<c:forEach var="ii" items="${li}">
+		<h1>${ii.nickname}</h1>
+		<h1>${ii.salary}</h1>
+	</c:forEach>
+		
+</body>
+</html>
+
+<!------------------------------------------------------------>
+예제17
+
+
+
+
+
+
+
+
+
+
+
+
+
