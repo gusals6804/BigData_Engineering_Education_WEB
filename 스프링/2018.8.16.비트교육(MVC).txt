@@ -1,0 +1,47 @@
+<!---------------------------------------------------------------------------->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<!-- t1은 Model -->
+	<a href="aaa.jsp?t1=tiger">링크</a>
+	
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
+
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	안녕
+	<%
+		String t1 = request.getParameter("t1");
+		String s = "";
+		/* control */
+		/* 비즈니스 로직 */
+		for (int i = 0; i < 10; i++) {
+			s =  s + t1; // s += t1;
+		}
+	%>
+	
+	<!-- view -->
+	<!-- 프리젠테이션 로직 -->
+	<%= s %>
+</body>
+</html>
+
+<!---------------------------------------------------------------------------->
